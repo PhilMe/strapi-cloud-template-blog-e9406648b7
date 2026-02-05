@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "all_series",
+  "info": {
+    "singularName": "series",
+    "pluralName": "all-series",
+    "displayName": "Series",
+    "description": "Produktserien"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "description": {
+      "type": "text"
+    },
+    "manufacturer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::manufacturer.manufacturer"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "affiliate_links",
+  "info": {
+    "singularName": "affiliate-link",
+    "pluralName": "affiliate-links",
+    "displayName": "Affiliate Link",
+    "description": "Shop-Preise und Links pro Set"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "currency": {
+      "type": "enumeration",
+      "enum": ["EUR", "USD", "PLN"],
+      "default": "EUR"
+    },
+    "inStock": {
+      "type": "boolean",
+      "default": true
+    },
+    "lastUpdated": {
+      "type": "datetime"
+    },
+    "shop": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::shop.shop"
+    },
+    "set": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::set.set"
+    }
+  }
+}

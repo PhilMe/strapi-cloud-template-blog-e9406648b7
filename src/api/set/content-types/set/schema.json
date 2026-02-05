@@ -1,0 +1,113 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sets",
+  "info": {
+    "singularName": "set",
+    "pluralName": "sets",
+    "displayName": "Set",
+    "description": "COBI Sets - Hauptentität"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "setNumber": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "pieces": {
+      "type": "integer",
+      "required": true
+    },
+    "minifigures": {
+      "type": "integer",
+      "default": 0
+    },
+    "scale": {
+      "type": "string"
+    },
+    "length": {
+      "type": "decimal"
+    },
+    "width": {
+      "type": "decimal"
+    },
+    "height": {
+      "type": "decimal"
+    },
+    "dimensionUnit": {
+      "type": "enumeration",
+      "enum": ["cm", "mm", "inches"],
+      "default": "cm"
+    },
+    "weight": {
+      "type": "integer"
+    },
+    "year": {
+      "type": "integer",
+      "required": true
+    },
+    "releaseDate": {
+      "type": "date"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["available", "discontinued", "announced", "unknown"],
+      "default": "available"
+    },
+    "msrp": {
+      "type": "decimal"
+    },
+    "currency": {
+      "type": "enumeration",
+      "enum": ["EUR", "USD", "PLN"],
+      "default": "EUR"
+    },
+    "metaTitle": {
+      "type": "string"
+    },
+    "metaDescription": {
+      "type": "text"
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["images"]
+    },
+    "manufacturer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::manufacturer.manufacturer"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category"
+    },
+    "series": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::series.series"
+    },
+    "historicalContext": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::historical-context.historical-context"
+    }
+  }
+}
