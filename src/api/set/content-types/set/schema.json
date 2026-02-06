@@ -31,8 +31,7 @@
       "type": "text"
     },
     "pieces": {
-      "type": "integer",
-      "required": true
+      "type": "integer"
     },
     "minifigures": {
       "type": "integer",
@@ -59,8 +58,7 @@
       "type": "integer"
     },
     "year": {
-      "type": "integer",
-      "required": true
+      "type": "integer"
     },
     "releaseDate": {
       "type": "date"
