@@ -78,6 +78,15 @@
       "enum": ["EUR", "USD", "PLN"],
       "default": "EUR"
     },
+    "ean": {
+      "type": "string"
+    },
+    "ageGroup": {
+      "type": "string"
+    },
+    "sourceUrl": {
+      "type": "string"
+    },
     "metaTitle": {
       "type": "string"
     },
