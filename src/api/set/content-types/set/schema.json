@@ -65,7 +65,8 @@
     },
     "status": {
       "type": "enumeration",
-      "enum": ["available", "discontinued", "announced", "unknown"]
+      "enum": ["available", "discontinued", "announced", "unknown"],
+      "default": "unknown"
     },
     "msrp": {
       "type": "decimal"
