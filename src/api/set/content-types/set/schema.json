@@ -8,7 +8,7 @@
     "description": "COBI Sets - Hauptentität"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "attributes": {
     "setNumber": {
