@@ -115,6 +115,10 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::historical-context.historical-context"
+    },
+    "isFeatured": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
