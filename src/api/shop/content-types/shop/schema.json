@@ -31,6 +31,9 @@
     "isPrimary": {
       "type": "boolean",
       "default": false
+    },
+    "trackingParameter": {
+      "type": "string"
     }
   }
 }
