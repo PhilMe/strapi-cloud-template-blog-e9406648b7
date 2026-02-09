@@ -38,7 +38,8 @@
     "set": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::set.set"
+      "target": "api::set.set",
+      "inversedBy": "affiliateLinks"
     }
   }
 }

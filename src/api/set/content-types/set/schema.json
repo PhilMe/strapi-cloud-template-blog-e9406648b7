@@ -119,6 +119,12 @@
     "isFeatured": {
       "type": "boolean",
       "default": false
+    },
+    "affiliateLinks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::affiliate-link.affiliate-link",
+      "mappedBy": "set"
     }
   }
 }
