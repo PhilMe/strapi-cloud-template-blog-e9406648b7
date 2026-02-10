@@ -85,6 +85,9 @@
     "sourceUrl": {
       "type": "string"
     },
+    "instructionUrl": {
+      "type": "string"
+    },
     "metaTitle": {
       "type": "string"
     },
