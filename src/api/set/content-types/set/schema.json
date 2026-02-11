@@ -88,6 +88,9 @@
     "instructionUrl": {
       "type": "string"
     },
+    "youtubeVideoId": {
+      "type": "string"
+    },
     "metaTitle": {
       "type": "string"
     },
