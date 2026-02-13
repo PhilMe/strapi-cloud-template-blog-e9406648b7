@@ -37,7 +37,7 @@ const TARGET_LOCALES = ['en', 'pl'];
 const SOURCE_LOCALE = 'de';
 
 // Models: Haiku for short content (sets, categories), Sonnet for long content (historical context)
-const MODEL_SHORT = 'claude-3-5-haiku-20241022';
+const MODEL_SHORT = 'claude-haiku-4-5-20251001';
 const MODEL_LONG = 'claude-sonnet-4-20250514';
 
 const PROGRESS_FILE = path.join(__dirname, 'translate-progress.json');
@@ -66,7 +66,7 @@ const CONTENT_TYPES = {
     promptContext: 'a building block manufacturer',
   },
   series: {
-    endpoint: '/series',
+    endpoint: '/all-series',
     fields: ['name', 'description'],
     slugField: null,
     nameField: 'name',
@@ -76,6 +76,7 @@ const CONTENT_TYPES = {
   set: {
     endpoint: '/sets',
     fields: ['name', 'subtitle', 'description', 'metaTitle', 'metaDescription'],
+    requiredFields: ['setNumber'], // Non-localized required fields that must be sent with every PUT
     slugField: 'slug', // Slug is localized for sets
     nameField: 'name',
     populateImages: true, // Workaround for media bug #25178
@@ -197,11 +198,12 @@ async function fetchAllEntries(config, locale) {
     params.set('pagination[pageSize]', PAGE_SIZE.toString());
 
     // Request only the fields we need
-    config.fields.forEach((field, i) => {
+    const allFields = [...config.fields, ...(config.requiredFields || [])];
+    allFields.forEach((field, i) => {
       params.set(`fields[${i}]`, field);
     });
     // Always need documentId and the name field
-    params.set(`fields[${config.fields.length}]`, 'documentId');
+    params.set(`fields[${allFields.length}]`, 'documentId');
 
     // If we need images for the media bug workaround
     if (config.populateImages) {
@@ -369,6 +371,15 @@ async function translateContentType(typeName, config, locales, progress) {
         // Build the data to write
         const writeData = {};
 
+        // Copy non-localized required fields (e.g. setNumber) from source entry
+        if (config.requiredFields) {
+          for (const field of config.requiredFields) {
+            if (entry[field] !== undefined) {
+              writeData[field] = entry[field];
+            }
+          }
+        }
+
         // Copy translated fields
         for (const field of config.fields) {
           if (translation[field] !== undefined) {
@@ -378,7 +389,12 @@ async function translateContentType(typeName, config, locales, progress) {
 
         // Generate localized slug if configured
         if (config.slugField && translation[config.nameField]) {
-          writeData[config.slugField] = generateSlug(translation[config.nameField]);
+          let slug = generateSlug(translation[config.nameField]);
+          // For sets: append setNumber to slug to ensure uniqueness (same pattern as DE slugs)
+          if (entry.setNumber) {
+            slug = `${slug}-${entry.setNumber}`;
+          }
+          writeData[config.slugField] = slug;
         }
 
         // Workaround for media bug #25178: include image IDs
