@@ -1,0 +1,65 @@
+{
+  "kind": "collectionType",
+  "collectionName": "youtube_videos",
+  "info": {
+    "singularName": "youtube-video",
+    "pluralName": "youtube-videos",
+    "displayName": "YouTube Video",
+    "description": "YouTube videos from influencers featuring COBI products"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": false
+    }
+  },
+  "attributes": {
+    "videoId": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "publishedAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "channelId": {
+      "type": "string",
+      "required": true
+    },
+    "channelTitle": {
+      "type": "string",
+      "required": true
+    },
+    "thumbnailUrl": {
+      "type": "string"
+    },
+    "duration": {
+      "type": "integer"
+    },
+    "viewCount": {
+      "type": "biginteger"
+    },
+    "isShort": {
+      "type": "boolean",
+      "default": true
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    },
+    "sortOrder": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}
