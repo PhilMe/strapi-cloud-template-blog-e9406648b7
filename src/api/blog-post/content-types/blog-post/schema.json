@@ -1,0 +1,70 @@
+{
+  "kind": "collectionType",
+  "collectionName": "blog_posts",
+  "info": {
+    "singularName": "blog-post",
+    "pluralName": "blog-posts",
+    "displayName": "Blog Post",
+    "description": "Blogbeitraege und Content-Marketing Artikel"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "pluginOptions": { "i18n": { "localized": true } },
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "pluginOptions": { "i18n": { "localized": true } },
+      "type": "uid",
+      "targetField": "title"
+    },
+    "excerpt": {
+      "pluginOptions": { "i18n": { "localized": true } },
+      "type": "text"
+    },
+    "content": {
+      "pluginOptions": { "i18n": { "localized": true } },
+      "type": "blocks"
+    },
+    "featuredImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "author": {
+      "pluginOptions": { "i18n": { "localized": false } },
+      "type": "string",
+      "default": "Cobipedia"
+    },
+    "blogCategory": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::blog-category.blog-category"
+    },
+    "relatedSets": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::set.set",
+      "inversedBy": "blogPosts"
+    },
+    "metaTitle": {
+      "pluginOptions": { "i18n": { "localized": true } },
+      "type": "string"
+    },
+    "metaDescription": {
+      "pluginOptions": { "i18n": { "localized": true } },
+      "type": "text"
+    },
+    "publishDate": {
+      "type": "date"
+    }
+  }
+}

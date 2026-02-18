@@ -166,6 +166,12 @@
       "relation": "oneToMany",
       "target": "api::affiliate-link.affiliate-link",
       "mappedBy": "set"
+    },
+    "blogPosts": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::blog-post.blog-post",
+      "mappedBy": "relatedSets"
     }
   }
 }
