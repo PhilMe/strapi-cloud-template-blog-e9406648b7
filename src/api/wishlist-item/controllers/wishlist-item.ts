@@ -1,19 +1,22 @@
 import { factories } from '@strapi/strapi';
 
+const SET_POPULATE = {
+  set: { fields: ['documentId', 'setNumber', 'name', 'slug'] },
+};
+
 export default factories.createCoreController('api::wishlist-item.wishlist-item', ({ strapi }) => ({
   async find(ctx) {
     const user = ctx.state.user;
     if (!user) return ctx.unauthorized('You must be logged in');
 
-    ctx.query = {
-      ...ctx.query,
-      filters: {
-        ...(ctx.query.filters as any || {}),
-        user: { documentId: user.documentId },
-      },
-    };
+    const entries = await strapi.documents('api::wishlist-item.wishlist-item').findMany({
+      filters: { user: { documentId: user.documentId } },
+      populate: SET_POPULATE,
+      sort: { createdAt: 'desc' },
+      limit: 100,
+    });
 
-    return await super.find(ctx);
+    return { data: entries };
   },
 
   async create(ctx) {
@@ -21,10 +24,14 @@ export default factories.createCoreController('api::wishlist-item.wishlist-item'
     if (!user) return ctx.unauthorized('You must be logged in');
 
     const body = ctx.request.body as any;
-    if (!body.data) body.data = {};
-    body.data.user = user.documentId;
+    const data = body?.data || {};
 
-    return await super.create(ctx);
+    const entry = await strapi.documents('api::wishlist-item.wishlist-item').create({
+      data: { ...data, user: user.documentId },
+      populate: SET_POPULATE,
+    });
+
+    return { data: entry };
   },
 
   async delete(ctx) {
@@ -41,6 +48,7 @@ export default factories.createCoreController('api::wishlist-item.wishlist-item'
       return ctx.forbidden('You can only delete your own items');
     }
 
-    return await super.delete(ctx);
+    await strapi.documents('api::wishlist-item.wishlist-item').delete({ documentId: id });
+    return { data: { documentId: id } };
   },
 }));
