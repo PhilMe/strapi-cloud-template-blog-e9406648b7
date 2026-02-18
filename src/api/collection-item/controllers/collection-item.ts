@@ -2,7 +2,7 @@ import { factories } from '@strapi/strapi';
 
 const SET_POPULATE = {
   set: { fields: ['documentId', 'setNumber', 'name', 'slug'] },
-};
+} as any;
 
 export default factories.createCoreController('api::collection-item.collection-item', ({ strapi }) => ({
   async find(ctx) {
