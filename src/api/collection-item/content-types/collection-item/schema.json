@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "collection_items",
+  "info": {
+    "singularName": "collection-item",
+    "pluralName": "collection-items",
+    "displayName": "Collection Item",
+    "description": "User collection items - sets they own"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": false
+    }
+  },
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "set": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::set.set"
+    },
+    "condition": {
+      "type": "enumeration",
+      "enum": ["new", "built", "used"],
+      "default": "new"
+    },
+    "purchasePrice": {
+      "type": "decimal"
+    },
+    "purchaseDate": {
+      "type": "date"
+    },
+    "rating": {
+      "type": "integer",
+      "min": 1,
+      "max": 5
+    },
+    "notes": {
+      "type": "text"
+    }
+  }
+}
