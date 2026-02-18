@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "price_alerts",
+  "info": {
+    "singularName": "price-alert",
+    "pluralName": "price-alerts",
+    "displayName": "Price Alert",
+    "description": "User price alerts - notified when price drops below target"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": false
+    }
+  },
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "set": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::set.set"
+    },
+    "targetPrice": {
+      "type": "decimal",
+      "required": true
+    },
+    "currency": {
+      "type": "enumeration",
+      "enum": ["EUR", "USD", "PLN"],
+      "default": "EUR"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    },
+    "lastNotifiedAt": {
+      "type": "datetime"
+    },
+    "lastNotifiedPrice": {
+      "type": "decimal"
+    },
+    "notificationCount": {
+      "type": "integer",
+      "default": 0
+    },
+    "locale": {
+      "type": "enumeration",
+      "enum": ["de", "en", "pl"],
+      "default": "de"
+    }
+  }
+}

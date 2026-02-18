@@ -1349,6 +1349,48 @@ export interface ApiYoutubeVideoYoutubeVideo
   };
 }
 
+export interface ApiPriceAlertPriceAlert
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'price_alerts';
+  info: {
+    description: 'User price alerts - notified when price drops below target';
+    displayName: 'Price Alert';
+    pluralName: 'price-alerts';
+    singularName: 'price-alert';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    currency: Schema.Attribute.Enumeration<['EUR', 'USD', 'PLN']> &
+      Schema.Attribute.DefaultTo<'EUR'>;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    lastNotifiedAt: Schema.Attribute.DateTime;
+    lastNotifiedPrice: Schema.Attribute.Decimal;
+    locale: Schema.Attribute.Enumeration<['de', 'en', 'pl']> &
+      Schema.Attribute.DefaultTo<'de'>;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::price-alert.price-alert'
+    > &
+      Schema.Attribute.Private;
+    notificationCount: Schema.Attribute.Integer &
+      Schema.Attribute.DefaultTo<0>;
+    set: Schema.Attribute.Relation<'manyToOne', 'api::set.set'>;
+    targetPrice: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ContentTypeSchemas {
@@ -1366,6 +1408,7 @@ declare module '@strapi/strapi' {
       'api::collection-item.collection-item': ApiCollectionItemCollectionItem;
       'api::historical-context.historical-context': ApiHistoricalContextHistoricalContext;
       'api::manufacturer.manufacturer': ApiManufacturerManufacturer;
+      'api::price-alert.price-alert': ApiPriceAlertPriceAlert;
       'api::series.series': ApiSeriesSeries;
       'api::set.set': ApiSetSet;
       'api::shop.shop': ApiShopShop;
