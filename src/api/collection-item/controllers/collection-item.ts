@@ -9,7 +9,7 @@ export default factories.createCoreController('api::collection-item.collection-i
       ...ctx.query,
       filters: {
         ...(ctx.query.filters as any || {}),
-        user: user.id,
+        user: { documentId: user.documentId },
       },
     };
 
@@ -22,7 +22,7 @@ export default factories.createCoreController('api::collection-item.collection-i
 
     const body = ctx.request.body as any;
     if (!body.data) body.data = {};
-    body.data.user = user.id;
+    body.data.user = user.documentId;
 
     return await super.create(ctx);
   },
@@ -37,7 +37,7 @@ export default factories.createCoreController('api::collection-item.collection-i
       populate: ['user'],
     });
 
-    if (!entry || (entry as any).user?.id !== user.id) {
+    if (!entry || (entry as any).user?.documentId !== user.documentId) {
       return ctx.forbidden('You can only delete your own items');
     }
 
