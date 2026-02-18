@@ -1233,6 +1233,122 @@ export interface PluginUsersPermissionsUser
   };
 }
 
+export interface ApiCollectionItemCollectionItem
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'collection_items';
+  info: {
+    description: 'User collection items - sets they own';
+    displayName: 'Collection Item';
+    pluralName: 'collection-items';
+    singularName: 'collection-item';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    condition: Schema.Attribute.Enumeration<['new', 'built', 'used']> &
+      Schema.Attribute.DefaultTo<'new'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::collection-item.collection-item'
+    > &
+      Schema.Attribute.Private;
+    notes: Schema.Attribute.Text;
+    purchaseDate: Schema.Attribute.Date;
+    purchasePrice: Schema.Attribute.Decimal;
+    rating: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<{ min: 1; max: 5 }>;
+    set: Schema.Attribute.Relation<'manyToOne', 'api::set.set'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiWishlistItemWishlistItem
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'wishlist_items';
+  info: {
+    description: 'User wishlist items linked to sets';
+    displayName: 'Wishlist Item';
+    pluralName: 'wishlist-items';
+    singularName: 'wishlist-item';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::wishlist-item.wishlist-item'
+    > &
+      Schema.Attribute.Private;
+    notes: Schema.Attribute.Text;
+    set: Schema.Attribute.Relation<'manyToOne', 'api::set.set'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiYoutubeVideoYoutubeVideo
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'youtube_videos';
+  info: {
+    description: 'YouTube videos from influencers featuring COBI products';
+    displayName: 'YouTube Video';
+    pluralName: 'youtube-videos';
+    singularName: 'youtube-video';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    channelId: Schema.Attribute.String & Schema.Attribute.Required;
+    channelTitle: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    duration: Schema.Attribute.Integer;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    isShort: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::youtube-video.youtube-video'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    sortOrder: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    thumbnailUrl: Schema.Attribute.String;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    videoId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    viewCount: Schema.Attribute.BigInteger;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ContentTypeSchemas {
@@ -1247,11 +1363,14 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::affiliate-link.affiliate-link': ApiAffiliateLinkAffiliateLink;
       'api::category.category': ApiCategoryCategory;
+      'api::collection-item.collection-item': ApiCollectionItemCollectionItem;
       'api::historical-context.historical-context': ApiHistoricalContextHistoricalContext;
       'api::manufacturer.manufacturer': ApiManufacturerManufacturer;
       'api::series.series': ApiSeriesSeries;
       'api::set.set': ApiSetSet;
       'api::shop.shop': ApiShopShop;
+      'api::wishlist-item.wishlist-item': ApiWishlistItemWishlistItem;
+      'api::youtube-video.youtube-video': ApiYoutubeVideoYoutubeVideo;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
