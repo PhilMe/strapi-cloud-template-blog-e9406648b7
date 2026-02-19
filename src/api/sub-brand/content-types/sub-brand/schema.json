@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sub_brands",
+  "info": {
+    "singularName": "sub-brand",
+    "pluralName": "sub-brands",
+    "displayName": "Sub-Brand",
+    "description": "COBI Produktlinien (Historical Collection, Armed Forces, etc.)"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "name": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "description": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text"
+    },
+    "sortOrder": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

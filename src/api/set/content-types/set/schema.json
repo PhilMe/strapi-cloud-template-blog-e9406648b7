@@ -152,6 +152,11 @@
       "relation": "manyToOne",
       "target": "api::series.series"
     },
+    "subBrand": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::sub-brand.sub-brand"
+    },
     "historicalContext": {
       "type": "relation",
       "relation": "manyToOne",
