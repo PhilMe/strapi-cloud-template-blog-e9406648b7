@@ -1,7 +1,7 @@
 import { factories } from '@strapi/strapi';
 
 const SET_POPULATE = {
-  set: { fields: ['documentId', 'setNumber', 'name', 'slug'] },
+  set: { fields: ['documentId', 'setNumber', 'name', 'slug'], populate: { images: { fields: ['url', 'formats'] } } },
 } as any;
 
 export default factories.createCoreController('api::wishlist-item.wishlist-item', ({ strapi }) => ({
