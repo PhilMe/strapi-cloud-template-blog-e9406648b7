@@ -34,6 +34,36 @@ export default factories.createCoreController('api::collection-item.collection-i
     return { data: entry };
   },
 
+  async batchCreate(ctx) {
+    const user = ctx.state.user;
+    if (!user) return ctx.unauthorized('You must be logged in');
+
+    const body = ctx.request.body as any;
+    const items = body?.data || [];
+
+    if (!Array.isArray(items) || items.length === 0) {
+      return ctx.badRequest('No items provided');
+    }
+    if (items.length > 200) {
+      return ctx.badRequest('Maximum 200 items per batch');
+    }
+
+    const results = [];
+    for (const item of items) {
+      try {
+        const entry = await strapi.documents('api::collection-item.collection-item').create({
+          data: { ...item, user: user.documentId },
+          populate: SET_POPULATE,
+        });
+        results.push({ success: true, data: entry });
+      } catch (error: any) {
+        results.push({ success: false, error: error.message });
+      }
+    }
+
+    return { data: results };
+  },
+
   async delete(ctx) {
     const user = ctx.state.user;
     if (!user) return ctx.unauthorized('You must be logged in');

@@ -1,0 +1,21 @@
+{
+  "collectionName": "up_users",
+  "info": {
+    "name": "user",
+    "description": "",
+    "singularName": "user",
+    "pluralName": "users",
+    "displayName": "User"
+  },
+  "attributes": {
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "slogan": {
+      "type": "string",
+      "maxLength": 160
+    }
+  }
+}
