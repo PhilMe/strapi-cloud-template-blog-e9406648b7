@@ -20,7 +20,7 @@
     },
     "currency": {
       "type": "enumeration",
-      "enum": ["EUR", "USD", "PLN"],
+      "enum": ["EUR", "USD", "PLN", "GBP"],
       "default": "EUR"
     },
     "inStock": {
@@ -40,6 +40,9 @@
       "relation": "manyToOne",
       "target": "api::set.set",
       "inversedBy": "affiliateLinks"
+    },
+    "asin": {
+      "type": "string"
     }
   }
 }
